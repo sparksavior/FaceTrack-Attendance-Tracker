@@ -1,0 +1,29 @@
+# Ignore Python byte code files, database files, and system files
+*.pyc
+*.pyo
+__pycache__/
+Thumbs.db
+
+# Ignore virtual environment files
+venv/
+env/
+.venv/
+
+# Ignore log files
+*.log
+
+# Ignore IDE files
+.idea/
+.vscode/
+fac-works.py
+attendance*
+Mi
+
+# Ignore generated files and folders
+build/
+dist/
+*.egg-info/
+__pyinstaller/
+
+README.md
+fac-works.py
