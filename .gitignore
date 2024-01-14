@@ -24,6 +24,3 @@ build/
 dist/
 *.egg-info/
 __pyinstaller/
-
-README.md
-fac-works.py
