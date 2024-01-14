@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Registration</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            margin: 20px;
+            background-color: #f5f5f5;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        #eventInfo {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        form {
+            max-width: 400px;
+            margin: auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 20px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        #cameraFeed {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        #cameraFeed img {
+            margin: 10px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        nav {
+            background-color: #333;
+            padding: 10px;
+            border-radius: 4px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 15px;
+            margin: 0 10px;
+            border-radius: 4px;
+            background-color: #555;
+        }
+
+        nav a:hover {
+            background-color: #777;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="eventInfo">
+        <h1 id="eventName"></h1>
+        <p id="eventDescription"></p>
+        <p id="eventDetails"></p>
+    </div>
+
+    <form id="registrationForm">
+        <label for="userName">Full Name: <span style="color: red;">*</span></label>
+        <input type="text" id="userName" name="userName" required>
+    
+        <label for="userEmail">Email: <span style="color: red;">*</span></label>
+        <input type="email" id="userEmail" name="userEmail" required>
+    
+        <button type="button" onclick="userRegistration()">User Registration</button>
+    </form>
+
+    <nav>
+        <a href="javascript:void(0);" onclick="verification()">Verification</a>
+        <a href="javascript:void(0);" onclick="getAttendance()">Attendance</a>
+        <a href="javascript:void(0);" onclick="getReport()">Report</a>
+    </nav>
+
+    <div id="cameraFeed"></div>
+
+    <script>
+        // Read base URL from environment variable or use a default value
+        // const BASE_URL = process.env.BASE_URL || 'http://localhost:3000';
+
+
+        // Fetch and parse the event configuration
+        async function fetchEventConfig() {
+            const response = await fetch('/get_event_config');
+            const data = await response.json();
+
+            // Update the content based on the configuration
+            document.getElementById('eventName').textContent = data.eventName;
+            document.getElementById('eventDescription').textContent = data.eventDescription;
+            document.getElementById('eventDetails').textContent = data.eventDetails;
+        }
+
+        // Call the function to fetch and set the event configuration
+        fetchEventConfig();
+
+        async function userRegistration() {
+            const userName = document.getElementById('userName').value;
+            const userEmail = document.getElementById('userEmail').value;
+
+            // Check if both fields are filled
+            if (!userName || !userEmail) {
+                alert('Please enter both Full Name and Email.');
+                return;
+            }            
+            // Call /registration endpoint to register user
+            const response = await fetch('http://localhost:3000/registration', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: new URLSearchParams({ userName, userEmail }).toString(),
+            });
+
+            if (response.ok) {
+                alert('User registered successfully.');
+            } else {
+                alert('Error registering user.');
+            }
+        }
+
+        async function verification() {
+            // Call /capture endpoint to perform verification
+            const response = await fetch('http://localhost:3000/capture', {
+                method: 'GET',
+            });
+
+            if (response.ok) {
+                alert('Verification successful.');
+            } else {
+                alert('Error during verification.');
+            }
+        }
+
+        async function getAttendance() {
+            // Call /attendance endpoint to get attendance data
+            const response = await fetch('http://localhost:3000/attendance', {
+                method: 'GET',
+            });
+
+            if (response.ok) {
+                // Convert the response to a Blob
+                const blob = await response.blob();
+
+                // Create a link element and trigger a download
+                const link = document.createElement('a');
+                link.href = window.URL.createObjectURL(blob);
+                link.download = 'attendance.csv';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            } else {
+                alert('Error getting attendance data.');
+            }
+        }
+
+        async function getReport() {
+            // Call /report endpoint to get the report
+            const response = await fetch('http://localhost:3000/report', {
+                method: 'GET',
+            });
+
+            if (response.ok) {
+                // Convert the response to a Blob
+                const blob = await response.blob();
+
+                // Create a link element and trigger a download
+                const link = document.createElement('a');
+                link.href = window.URL.createObjectURL(blob);
+                link.download = 'attendance_report.png';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            } else {
+                alert('Error getting report data.');
+            }
+        }     
+
+        function switchTab(tabName) {
+            document.getElementById('registrationForm').style.display = tabName === 'registration' ? 'block' : 'none';
+            document.getElementById('cameraFeed').style.display = tabName === 'attendance' ? 'flex' : 'none';
+        }
+    </script>
+</body>
+
+</html>

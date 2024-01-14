@@ -1,0 +1,75 @@
+openapi: "3.0.0"
+info:
+  title: FaceTrack API
+  version: "1.0.0"
+  description: |
+    FaceTrack is a facial recognition program that allows user registration,
+    verification, attendance tracking, and report generation.
+
+servers:
+  - url: http://localhost:3000
+    description: Local development server
+
+paths:
+  /registration:
+    post:
+      summary: User Registration
+      tags:
+        - Registration
+      parameters:
+        - in: formData
+          name: userName
+          required: true
+          type: string
+          description: User's name
+        - in: formData
+          name: userEmail
+          required: true
+          type: string
+          description: User's email address
+      responses:
+        "200":
+          description: User registered successfully.
+        "400":
+          description: Bad request or validation error.
+        "500":
+          description: Internal server error.
+
+  /capture:
+    get:
+      summary: Capture Endpoint
+      tags:
+        - Capture
+      responses:
+        "200":
+          description: Successfully called capture endpoint.
+
+  /attendance:
+    get:
+      summary: Attendance Endpoint
+      tags:
+        - Attendance
+      responses:
+        "200":
+          description: Successfully called attendance endpoint.
+
+  /report:
+    get:
+      summary: Report Endpoint
+      tags:
+        - Report
+      responses:
+        "200":
+          description: Successfully called report endpoint.
+
+  /get_event_config:
+    get:
+      summary: Get Event Configuration
+      responses:
+        "200":
+          description: Successfully retrieved event configuration.
+        "404":
+          description: Config file not found.
+        "500":
+          description: Internal server error during config retrieval.
+
