@@ -107,6 +107,13 @@
         <label for="userEmail">Email: <span style="color: red;">*</span></label>
         <input type="email" id="userEmail" name="userEmail" required>
     
+        <!-- Consent checkbox and link -->
+        <div id="consentContainer">
+            <input type="checkbox" id="consentCheckbox" required checked>
+            <label for="consentCheckbox">I consent to take my picture and store it for event purposes. <span style="color: red;">*</span></label>
+        </div>
+        <p>By participating, you agree to our <a id="privacyLink" href="/privacy_policy" target="_blank">Privacy Policy</a>.</p>
+
         <button type="button" onclick="userRegistration()">User Registration</button>
     </form>
 

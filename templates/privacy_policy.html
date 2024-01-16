@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            text-align: justify;
+            margin: 20px;
+            background-color: #f5f5f5;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        p {
+            margin-bottom: 15px;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        li::before {
+            content: "\2022";
+            color: #4CAF50;
+            display: inline-block;
+            width: 1em;
+            margin-left: -1em;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Privacy Policy</h1>
+
+    <p>Effective Date: <span id="effectiveDate"></span></p>
+
+    <p>Welcome to [Your Event/Organization Name]!</p>
+
+    <p>This Privacy Policy outlines how we collect, use, disclose, and manage your personal information. By participating
+        in our event and using our services, you agree to the terms of this policy.</p>
+
+    <ul>
+        <li>We do not share your personal information with third parties without your explicit consent.</li>
+        <li>Your data will be retained for a period of 90 days from the date of collection.</li>
+        <li>We take reasonable measures to secure and protect your information from unauthorized access.</li>
+        <li>Any changes to this privacy policy will be communicated to you through our website or other means.</li>
+    </ul>
+
+    <p>By participating in our event, you acknowledge and consent to the terms outlined in this Privacy Policy.</p>
+
+    <p>If you have any questions or concerns about our privacy practices, please contact us at [Contact Email
+        Address].</p>
+
+    <p>This Privacy Policy is subject to change. Please check this page regularly for updates.</p>
+
+    <script>
+        // Update the effective date dynamically
+        const currentDate = new Date();
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        const formattedDate = currentDate.toLocaleDateString('en-US', options);
+        document.getElementById('effectiveDate').textContent = formattedDate;
+    </script>
+</body>
+
+</html>
