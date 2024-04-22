@@ -66,6 +66,9 @@ The system provides the following functionalities:
 - The "Report" button fetches the attendance report.
 - The report is available as a downloadable PNG file named `attendance_report.png`.
 
+<img width="619" alt="Screenshot 2024-04-21 at 8 29 19 PM" src="https://github.com/sparksavior/FaceTrack/assets/127971233/a9521f17-3713-4b3a-93e4-f5da3429f85d">
+
+
 ## API Documentation
 
 Explore the Swagger API documentation for the FaceTrack program: [Swagger API Link](http://localhost/apidocs).
