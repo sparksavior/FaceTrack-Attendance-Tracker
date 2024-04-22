@@ -3,6 +3,7 @@
 ## Overview
 
 The FaceTrack system utilizes facial recognition to identify students and track attendance in a class. This README provides an overview of the functionalities available to users.
+<img width="712" alt="Screenshot 2024-04-21 at 8 27 25 PM" src="https://github.com/sparksavior/FaceTrack/assets/127971233/2f11a355-25e4-43e2-9e29-02f9b0aa8dd3">
 
 ## Features
 
